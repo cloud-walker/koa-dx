@@ -1,12 +1,14 @@
 import Koa from 'koa'
 import koaBody from 'koa-body'
 import {z} from 'zod'
+import cors from '@koa/cors'
 
 import {router} from './router'
 
 const port = 4000
 const server = new Koa()
 
+server.use(cors())
 server.use(koaBody())
 server.use(async (ctx, next) => {
   try {
