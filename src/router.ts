@@ -1,17 +1,9 @@
 import Router from '@koa/router'
 
-import {db} from './db'
+import {articleRouter} from './article/article.router'
+import {commentRouter} from './comment/comment.router'
 
 export const router = new Router()
 
-router.get('/articles', async (ctx) => {
-  const articles = await db.article.findMany()
-
-  ctx.body = {articles}
-  ctx.status = 200
-})
-
-router.post('/articles', (ctx) => {
-  ctx.body = {}
-  ctx.status = 201
-})
+router.use(articleRouter.routes())
+router.use(commentRouter.routes())

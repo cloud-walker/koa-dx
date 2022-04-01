@@ -21,7 +21,9 @@ commentRouter.get('/:id', async (ctx) => {
   const comment = await db.comment.findFirst()
 
   if (comment == null) {
-    throw Error('comment not found.')
+    ctx.body = {message: 'Comment not found'}
+    ctx.status = 404
+    return
   }
 
   const body: ResponseGetComment = {data: comment}
