@@ -55,7 +55,7 @@ articleRouter.get('/', async (ctx) => {
 articleRouter.get('/:id', async (ctx) => {
   const searchParams = ParamsGetArticle.parse(ctx.params)
   const article = await db.article.findFirst({
-    where: {id: {equals: +searchParams.id}},
+    where: {id: {equals: searchParams.id}},
   })
 
   if (article == null) {
@@ -83,7 +83,7 @@ articleRouter.put('/:id', async (ctx) => {
   const searchParams = ParamsGetArticle.parse(ctx.params)
   const data = PayloadUpsertArticle.parse(ctx.request.body)
   const article = await db.article.update({
-    where: {id: +searchParams.id},
+    where: {id: searchParams.id},
     data,
   })
   const body: ResponseUpdateArticle = {data: article}
@@ -95,7 +95,7 @@ articleRouter.put('/:id', async (ctx) => {
 articleRouter.delete('/:id', async (ctx) => {
   const searchParams = ParamsDeleteArticle.parse(ctx.params)
   await db.article.delete({
-    where: {id: +searchParams.id},
+    where: {id: searchParams.id},
   })
 
   ctx.status = 204
